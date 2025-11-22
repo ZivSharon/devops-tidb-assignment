@@ -1,0 +1,21 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/shop-consumer/consumer.log
+
+processors:
+  # Keep only CDC event lines from the consumer logs
+  - drop_event:
+      when:
+        not:
+          contains:
+            message: "CDC_EVENT"
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  index: "cdc-events-%{+yyyy.MM.dd}"
+
+setup.template.enabled: false
+
+

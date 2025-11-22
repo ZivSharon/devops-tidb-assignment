@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'shop-consumer'
+    static_configs:
+      - targets: ['shop-consumer:8000']
+
+
